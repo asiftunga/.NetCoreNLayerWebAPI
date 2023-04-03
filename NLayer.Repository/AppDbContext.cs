@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NLayer.Core;
 using NLayer.Repository.Configuration;
+using System.Drawing;
 using System.Reflection;
 
 namespace NLayer.Repository
@@ -25,6 +26,25 @@ namespace NLayer.Repository
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly()); //butun configurationlari apply et demek
             //modelBuilder.ApplyConfiguration(new ProductConfiguration)
             //ustteki sekilde de tek tek eklenebilir
+
+
+            modelBuilder.Entity<ProductFeature>().HasData(new ProductFeature() //seed uzerinden yapilabildigi gibi bu kisimdan da halledilebilir (seed best practice'dir)
+            {
+                Id= 1,
+                Color = "kirmizi",
+                Height = 100,
+                Width = 200,
+                ProductId = 1
+            },
+
+            new ProductFeature()
+            {
+                Id = 2,
+                Color = "mavi",
+                Height = 300,
+                Width = 250,
+                ProductId = 2
+            });
             base.OnModelCreating(modelBuilder);
         }
     }

@@ -10,7 +10,7 @@ namespace NLayer.Core
     {
         public int Id { get; set; } //EF core bu id yi gordu mu bunu direkt olarak primary key olarak alir
         public DateTime CreatedDate { get; set; }
-        public DateTime UpdatedDAte {  get; set; } 
+        public DateTime? UpdatedDAte {  get; set; } //ilk olusturuldugunda null olmali bundan dolayi ? koyuyoruz
     }
 
 }
