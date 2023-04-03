@@ -16,7 +16,7 @@ namespace NLayer.Core.Repositories
 
         Task AddAsync(T entity);
 
-        Task AddRangeAsync(IEnumerable<T> entites);
+        Task AddRangeAsync(IEnumerable<T> entities);
 
         void Update(T entity); //efcore update ve delete icin async metotlari yoktur gerek de yoktur
 
