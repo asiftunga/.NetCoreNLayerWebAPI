@@ -26,7 +26,6 @@ namespace NLayer.Repository.UnitOfWorks
         {
             await _context.SaveChangesAsync();
             //await _context.SaveChangesAsync().Result; ile normal hale getirebilir async omaktan cikarabiliriz
-            //ustteki kod ne ise yariyor?
 
         }
     }

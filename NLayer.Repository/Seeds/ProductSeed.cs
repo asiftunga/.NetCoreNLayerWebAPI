@@ -14,13 +14,13 @@ namespace NLayer.Repository.Seeds
                     Id = 1,
                     CategoryId=1,
                     Name = "kalem1",
-                    Price = 100,
+                    Price = 1000,
                     Stock = 20,
                     CreatedDate = DateTime.Now //intercepter yazilabilir (yazilacak)
                 },
                 new Product
                 {
-                    Id = 1,
+                    Id = 2,
                     CategoryId = 2,
                     Name = "kitap",
                     Price = 100,
