@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NLayer.Core.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NLayer.Repository.Repositories
 {
@@ -34,36 +29,38 @@ namespace NLayer.Repository.Repositories
         public async Task<bool> AnyAsync(Expression<Func<T, bool>> expression)
         {
             return await _dbset.AnyAsync(expression);
+
         }
 
         public IQueryable<T> GetAll(Expression<Func<T, bool>> expression)
         {
-            throw new NotImplementedException();
+            return _dbset.AsNoTracking().AsQueryable(); //asnotracking efcore cekmis oldugu datalari memorye almasin. Bu nedenle uygulama performansi arttirilmistir
         }
 
-        public Task<T> GetByIdAsync(int id)
+        public async Task<T> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _dbset.FindAsync(id);
         }
 
-        public void Remove(T entity)
+        public void Remove(T entity) //asenkron degil bunun sebebi -> entitynin stateini deleted olarak flag gibi isaretliyoruz ve sonrasinda savechanges ile db ye gonderiyoruz, kisacasi memorydeki entitynin degerine bir flag atiyoruz, db lik herhangi bir islem yapilmadi
         {
-            throw new NotImplementedException();
+            //_context.Entry(entity).State = EntityState.Deleted; | bu ile alttaki ayni isi yapiyor | deleted ile flag vermis oluyoruz
+            _dbset.Remove(entity);
         }
 
-        public void RemoveRange(IEnumerable<T> entites)
+        public void RemoveRange(IEnumerable<T> entites) //asenkron degil
         {
-            throw new NotImplementedException();
+            _dbset.RemoveRange(entites);
         }
 
-        public void Update(T entity)
+        public void Update(T entity) //asenkron degil
         {
-            throw new NotImplementedException();
+            _dbset.Update(entity);
         }
 
         public IQueryable<T> Where(Expression<Func<T, bool>> expression)
         {
-            throw new NotImplementedException();
+            return _dbset.Where(expression);
         }
     }
 }
