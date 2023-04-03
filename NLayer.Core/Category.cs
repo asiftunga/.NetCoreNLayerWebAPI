@@ -8,6 +8,10 @@ namespace NLayer.Core
 {
     public class Category : BaseEntity
     {
-        public string Name { get; set; }
+        public string Name{ get; set; }
+
+        public ICollection<Product> Products { get; set;} //bir kategorinin birden fazla producti olabilir 1-N iliski | bu prop turune navigation prop ismi verilir
+
+
     }
 }
