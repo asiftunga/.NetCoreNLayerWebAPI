@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NLayer.Core
+namespace NLayer.Core.Models
 {
     public class Product : BaseEntity
     {
@@ -13,7 +13,7 @@ namespace NLayer.Core
         public int Stock { get; set; }
 
         public decimal Price { get; set; }
-        
+
         public int CategoryId { get; set; } //foreign key (asagidaki ile olmus oluyor) | EF core CategoryId kullanimini otomatik olarak algilar, best practices
 
         public Category Category { get; set; }//productin bir tane kategorisi olabilir

@@ -17,9 +17,9 @@ namespace NLayer.Core.Services
 
         Task<bool> AnyAsync(Expression<Func<T, bool>> expression);
 
-        Task AddAsync(T entity);
+        Task<T> AddAsync(T entity);
 
-        Task AddRangeAsync(IEnumerable<T> entites);
+        Task<IEnumerable<T>> AddRangeAsync(IEnumerable<T> entites);
 
         Task UpdateAsync(T entity);  //veritabanina bu degisiklikler yansitilacagi ve savechangeasync metot kullanilacagi icin asenkrona donusturulur
 

@@ -1,11 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NLayer.Core.Repositories;
+using NLayer.Core.UnitOfWorks;
 using System.Linq.Expressions;
 
 namespace NLayer.Repository.Repositories
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
+
+
         protected readonly AppDbContext _context;
 
         private readonly DbSet<T> _dbset; //ctorda deger atanacak ve sonrasinda set edilmemesi icin readonly yapilir
@@ -24,6 +27,7 @@ namespace NLayer.Repository.Repositories
         public async Task AddRangeAsync(IEnumerable<T> entities)
         {
             await _dbset.AddRangeAsync(entities);
+            //_context.SaveChanges();   normalde bu sekilde kullanilacakti fakat UnitOfWork patterni ekledik. Bu sayede savechanges() benim kontrolum altinda olacak farkli farkli repolarda updateler memoryde kalsin ben ne zaman savechanges() cagirirsam efcore memorydeki tum degisiklikleri bir transection blogu seklinde veri tabanina yansitsin, o islemlerden herhangi birisinde hata meydana gelirse tum degisiklikler geri alinsin (rollback) yapilsin
         }
 
         public async Task<bool> AnyAsync(Expression<Func<T, bool>> expression)
@@ -32,7 +36,7 @@ namespace NLayer.Repository.Repositories
 
         }
 
-        public IQueryable<T> GetAll(Expression<Func<T, bool>> expression)
+        public IQueryable<T> GetAll()
         {
             return _dbset.AsNoTracking().AsQueryable(); //asnotracking efcore cekmis oldugu datalari memorye almasin. Bu nedenle uygulama performansi arttirilmistir
         }
